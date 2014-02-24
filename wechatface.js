@@ -116,30 +116,23 @@ var WECHAT_FACE_MAP = jEmoji.WECHAT_FACE_MAP = {
     '/:oY' : '100'
 };
 
-function _createRegexp(map) {
-    var keys = Object.keys(map);
-    console.log(keys.join('|'));
-    return new RegExp(keys.join('|'), 'g');
-}
-
-var WECHAT_FACE_RE = null;
 /**
  * Convert unified code to HTML.
  * 
  * @param {String} text
  * @return {String} html with emoji classname.
 */
+
+function escapeRegExp(str) {
+  return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+}
+
 function faceToHTML(text) {
     for (var face in WECHAT_FACE_MAP) {
-        text = text.replace(face, '<span class="wechatface wechatface_' + WECHAT_FACE_MAP[face] + '"></span>');
+        var re = new RegExp(escapeRegExp(face), 'g');
+        text = text.replace(re, '<span class="wechatface wechatface_' + WECHAT_FACE_MAP[face] + '"></span>');
     };
     return text;
-    /*
-    return text.replace(WECHAT_FACE_RE, function (_, m) {
-        var em = WECHAT_FACE_MAP[m];
-        return '[表情：' + em + ']';
-    });
-    */
 }
 wechatFace.faceToHTML = faceToHTML;
 
