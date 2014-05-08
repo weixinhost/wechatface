@@ -13,7 +13,7 @@
 
 var wechatFace = {};
 
-var WECHAT_FACE_MAP {
+var WECHAT_FACE_MAP = {
     '/::)' : '1',
     '/::~' : '2',
     '/::B' : '3',
